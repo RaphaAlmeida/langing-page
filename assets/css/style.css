@@ -1,317 +1,402 @@
 /* Reset de estilos */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos Globais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000000;
+  color: #fff;
+  line-height: 1.6;
+}
+
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* Mantém a imagem de fundo original */
+  background: url("../images/header-bg.png") no-repeat center center/cover;
+  /* Importante: define o z-index para que os elementos internos fiquem acima do pseudo-elemento */
+  z-index: 0;
+  overflow: hidden;
+  /* Garante que a animação não vaze para fora */
+}
+
+/* Cria um overlay animado com pseudo-elemento */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Define o gradiente que você deseja animar */
+  background: linear-gradient(45deg, #000, #00ff88);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  opacity: 0.4;
+  /* Ajuste a transparência conforme necessário */
+  z-index: 1;
+}
+
+/* Exemplo da animação (keyframes) */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  /* Estilos Globais */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #000000;
-    color: #fff;
-    line-height: 1.6;
+
+  50% {
+    background-position: 100% 50%;
   }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Overlay */
+.hero::after,
+.overlay {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* CSS para o canvas de gráfico dinâmico */
+#stockCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Permite clicar nos elementos à frente */
+  z-index: 0;
+  /* Fica atrás dos conteúdos com z-index maiores (ex.: header-container) */
+}
+
+/* Container que agrupa tudo dentro do header */
+.header-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Seção do topo (logo, etc.) */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  /* logo à esquerda, botão à direita, por exemplo */
+  align-items: center;
+  width: 100%;
+  margin-top: 318px;
+  /* "auto 0 0 0" pode ajudar a alinhar no centro vertical, dependendo do efeito desejado */
+  /* "auto" empurra o conteúdo hero-content para baixo, caso queira que o hero-content fique centralizado */
+}
+
+/* Conteúdo principal */
+.hero-content {
+  color: #fff;
+  max-width: 600px;
+  margin: 200 0 0 0;
+  /* "auto 0 0 0" pode ajudar a alinhar no centro vertical, dependendo do efeito desejado */
+}
+
+.logo {
+  width: 250px;
+  /* Define a largura desejada */
+  height: auto;
+  /* Mantém a proporção original da imagem */
+}
+
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Botão CTA */
+.cta-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 15px 25px;
+  background-color: #00ff88;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
   .hero {
-    position: relative;
-    width: 100%;
-    height: 100vh; 
-    background: url("../images/header-bg.png") no-repeat center center/cover;
+    height: auto;
+    min-height: 600px;
   }
-  
-  /* Overlay */
-  .hero::after,
-  .overlay {
-    content: "";
-    position: absolute; 
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 1;
-  }
-  
-  /* Container que agrupa tudo dentro do header */
-  .header-container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  /* Seção do topo (logo, etc.) */
+
   .header-top {
-    display: flex;
-    justify-content: space-between; /* logo à esquerda, botão à direita, por exemplo */
-    align-items: center;
-    width: 100%;
-    margin-top: 318px;
-    /* "auto 0 0 0" pode ajudar a alinhar no centro vertical, dependendo do efeito desejado */
-    /* "auto" empurra o conteúdo hero-content para baixo, caso queira que o hero-content fique centralizado */
-  }
-  
-  /* Conteúdo principal */
-  .hero-content {
-    color: #fff;
-    max-width: 600px;
-    margin: 200 0 0 0; 
-    /* "auto 0 0 0" pode ajudar a alinhar no centro vertical, dependendo do efeito desejado */
-  }
-  
-  .logo {
-    width: 250px; /* Define a largura desejada */
-    height: auto; /* Mantém a proporção original da imagem */
-  }
-
-
-  .hero-content h1 {
-    font-size: 2.5rem;
+    flex-direction: column;
+    /* logo e botão empilhados no mobile */
     margin-bottom: 1rem;
   }
-  
-  /* Botão CTA */
-  .cta-button {
-    display: inline-block;
-    margin-top: 1.5rem;
-    padding: 15px 25px;
-    background-color: #00ff88;
-    color: #000;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.3s ease;
+
+  .hero-content {
+    margin: 0;
+    /* remove margens extras */
   }
 
-  .btn-container {
-    text-align: center;
+  .hero-content h1 {
+    font-size: 1.8rem;
   }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
-    .hero {
-      height: auto; 
-      min-height: 600px;
-    }
-  
-    .header-top {
-      flex-direction: column; /* logo e botão empilhados no mobile */
-      margin-bottom: 1rem;
-    }
-  
-    .hero-content {
-      margin: 0; /* remove margens extras */
-    }
-  
-    .hero-content h1 {
-      font-size: 1.8rem;
-    }
-  }
-  
-  /* Exemplo de container para outras seções */
+}
+
+/* Exemplo de container para outras seções */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
 }
+
 .alt-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 5px 10px;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 5px 10px;
+}
 
 
 
-  /* Seções */
-  section {
-    padding: 40px 0;
-    border-bottom: 1px solid #333;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
-  }
-  
-  /* Alterne fundo em seções ímpares */
-  section:nth-of-type(odd) {
-    background-color: #121212;
-  }
-  
-  /* Headings das seções */
-  h2 {
-    font-size: 1.8em;
-    color: #00ff88;
-    margin-bottom: 20px;
-  }
-  
-  /* Botão CTA */
-  a.cta-button {
-    display: inline-block;
-    margin: 20px 0;
-    padding: 15px 25px;
-    background-color: #00ff88;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  a.cta-button:hover {
-    background-color: #00cc70;
-    transform: scale(1.05);
-  }
+/* Estado inicial das seções */
+section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
 
-  .botao-container {
-    text-align: center;
-  }
-  
-  
-  /* Blocos específicos: depoimentos, bônus e rodapé */
-  .bonus, .rodape {
-    background-color: #0a0a0adc;
-    padding: 20px;
-    border-radius: 10px;
-    
-  }
+/* Estado final após a animação */
+section.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  /* FORMATANDO AS LISTAS ORDENADAS */
-  .custom-list {
-    list-style: none;           /* Remove os marcadores padrão */
-    padding: 0;                
-    margin: 1em 0;
-    font-size: 1.1rem;         /* Ajuste de acordo com seu gosto */
-    line-height: 1.6;          /* Melhora a legibilidade */
-  }
-  
-  .custom-list li {
-    position: relative;        
-    padding-left: 35px;        /* Espaço para o ícone à esquerda */
-    margin-bottom: 0.8em;      /* Espaçamento vertical entre os itens */
-  }
-  
-  /* Ícone personalizado antes de cada LI */
-  .custom-list li::before {
-    content: '✔';               /* Pode trocar por um outro símbolo ou caractere Unicode */
-    color: #00ff88;             /* Cor do ícone que combine com seu tema */
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-    top: 2px;                  /* Ajuste conforme a altura da fonte do texto */
-    font-size: 1.2rem;         /* Tamanho do ícone, pode diminuir ou aumentar */
-  }
+/* Alterne fundo em seções ímpares */
+section:nth-of-type(odd) {
+  background-color: #121212;
+}
+
+/* Headings das seções */
+h2 {
+  font-size: 1.8em;
+  color: #00ff88;
+  margin-bottom: 20px;
+}
+
+/* Botão CTA */
+a.cta-button {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 15px 25px;
+  background-color: #00ff88;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+a.cta-button:hover {
+  background-color: #00cc70;
+  transform: scale(1.05);
+  background-color: #00cc70;
+}
+
+.botao-container {
+  text-align: center;
+}
+
+
+/* Blocos específicos: depoimentos, bônus e rodapé */
+.bonus,
+.rodape {
+  background-color: #0a0a0adc;
+  padding: 20px;
+  border-radius: 10px;
+
+}
+
+/* FORMATANDO AS LISTAS ORDENADAS */
+.custom-list {
+  list-style: none;
+  /* Remove os marcadores padrão */
+  padding: 0;
+  margin: 1em 0;
+  font-size: 1.1rem;
+  /* Ajuste de acordo com seu gosto */
+  line-height: 1.6;
+  /* Melhora a legibilidade */
+}
+
+.custom-list li {
+  position: relative;
+  padding-left: 35px;
+  /* Espaço para o ícone à esquerda */
+  margin-bottom: 0.8em;
+  /* Espaçamento vertical entre os itens */
+}
+
+/* Ícone personalizado antes de cada LI */
+.custom-list li::before {
+  content: '✔';
+  /* Pode trocar por um outro símbolo ou caractere Unicode */
+  color: #00ff88;
+  /* Cor do ícone que combine com seu tema */
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  /* Ajuste conforme a altura da fonte do texto */
+  font-size: 1.2rem;
+  /* Tamanho do ícone, pode diminuir ou aumentar */
+}
 
 
 /* Define um símbolo para cada item */
 .custom-list li.connect::before {
-    content: "🔗";
-  }
-  
-  .custom-list li.auto::before {
-    content: "🔁";
-  }
-  
-  .custom-list li.brain::before {
-    content: "🧠";
-  }
-    
-  .custom-list li.no-click::before {
-    content: "🚫";
-  }
-  .custom-list li.fire::before {
-    content: "🔥";
-  }
-  
-  .custom-list li.hat::before {
-    content: "🎓";
-  }
-    
-  .custom-list li.boom::before {
-    content: "💥";
-  }
+  content: "🔗";
+}
 
-  .depoimentos .video-depoimentos {
- 
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    max-width: none;
-    
-  }
+.custom-list li.auto::before {
+  content: "🔁";
+}
 
-   
-  /* Imagens responsivas */
-  .prints img {
-    max-width: 100%;
-    border-radius: 10px;
-  }
+.custom-list li.brain::before {
+  content: "🧠";
+}
 
-  .prints {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;             /* Espaçamento entre as imagens */
-    justify-content: center;
+.custom-list li.no-click::before {
+  content: "🚫";
+}
 
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
+.custom-list li.fire::before {
+  content: "🔥";
+}
+
+.custom-list li.hat::before {
+  content: "🎓";
+}
+
+.custom-list li.boom::before {
+  content: "💥";
+}
+
+.depoimentos .video-depoimentos {
+
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  max-width: none;
+
+}
+
+
+/* Imagens responsivas */
+.prints img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.prints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* Espaçamento entre as imagens */
+  justify-content: center;
+
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.prints .print-item {
+  width: calc(33% - 20px);
+  /* Em telas maiores, 3 imagens por linha */
+  max-width: 300px;
+  /* Limite para cada imagem, se necessário */
+  border-radius: 10px;
+  object-fit: cover;
+  /* Garante que a imagem preencha o espaço sem distorcer */
+}
+
+@media (max-width: 768px) {
   .prints .print-item {
-    width: calc(33% - 20px);  /* Em telas maiores, 3 imagens por linha */
-    max-width: 300px;            /* Limite para cada imagem, se necessário */
-    border-radius: 10px;
-    object-fit: cover;           /* Garante que a imagem preencha o espaço sem distorcer */
+    width: calc(50% - 20px);
+    /* Em telas médias, 2 imagens por linha */
   }
-  
-  @media (max-width: 768px) {
-    .prints .print-item {
-      width: calc(50% - 20px);   /* Em telas médias, 2 imagens por linha */
-    }
+}
+
+@media (max-width: 480px) {
+  .prints .print-item {
+    width: 100%;
+    /* Em telas pequenas, cada imagem ocupa 100% do container */
   }
-  
-  @media (max-width: 480px) {
-    .prints .print-item {
-      width: 100%;               /* Em telas pequenas, cada imagem ocupa 100% do container */
-    }
+}
+
+/* Animação de Fade-In Up */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Animação de Fade-In Up */
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.8em;
   }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
-    header h1 {
-      font-size: 1.8em;
-    }
-    h2 {
-      font-size: 1.5em;
-      
-    }
-    .container {
-      padding: 10px;
-    }
+
+  h2 {
+    font-size: 1.5em;
+
   }
+
+  .container {
+    padding: 10px;
+  }
+}
 
 
 
-  /* Depoimentos youtube */
+/* Depoimentos youtube */
 
-  .video-depoimentos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center; /* ou space-around, space-between etc. */
-  }
+.video-depoimentos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  /* ou space-around, space-between etc. */
+}
 
 
-  
-  .video-depoimentos iframe {
-    border-radius: 10px;
-    margin-top: 20px;
-    max-width: none;
-  }
-  
+
+.video-depoimentos iframe {
+  border-radius: 10px;
+  margin-top: 20px;
+  max-width: none;
+}
