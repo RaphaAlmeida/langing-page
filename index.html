@@ -7,12 +7,30 @@
   <title>Copy Trading VIP</title>
   <!-- Link para o arquivo CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  ...
+  <!-- AOS JS (antes do main.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+  <section data-aos="fade-up">
+    ...
+  </section>
 </head>
 
 <body>
 
   <!-- Header com imagem de fundo e overlay -->
   <header class="hero">
+    <!-- Canvas para o efeito do gráfico dinâmico -->
+    <canvas id="stockCanvas"></canvas>
+
     <div class="overlay"></div>
     <div class="header-container">
       <!-- Topo do header, com logo e talvez um botão -->
@@ -97,7 +115,8 @@
     <section class="depoimentos">
       <div class="alt-container">
         <h2>RESULTADOS COMPROVADOS</h2>
-        <p>Depoimentos reais e prints diários mostram os rendimentos consistentes de quem já faz parte do Copy Trading VIP.
+        <p>Depoimentos reais e prints diários mostram os rendimentos consistentes de quem já faz parte do Copy Trading
+          VIP.
           São resultados no automático, sem que os usuários precisem operar</p>
       </div>
       <div class="video-depoimentos">
@@ -144,18 +163,18 @@
           acontecem no automático — sem que eles precisem operar.
         </p>
       </div>
-        <div class="prints">
-          <img src="assets/images/print_1.jpg" alt="Print 1 - Agradecimento" class="print-item" />
-          <img src="assets/images/print_2.jpg" alt="Print 2 - Agradecimento" class="print-item" />
-          <img src="assets/images/print_3.jpg" alt="Print 3 - Agradecimento" class="print-item" />
-          <img src="assets/images/print_4.jpg" alt="Print 4 - Agradecimento" class="print-item" />
-          <img src="assets/images/print_5.jpg" alt="Print 5 - Agradecimento" class="print-item" />
-        </div>
+      <div class="prints">
+        <img src="assets/images/print_1.jpg" alt="Print 1 - Agradecimento" class="print-item" />
+        <img src="assets/images/print_2.jpg" alt="Print 2 - Agradecimento" class="print-item" />
+        <img src="assets/images/print_3.jpg" alt="Print 3 - Agradecimento" class="print-item" />
+        <img src="assets/images/print_4.jpg" alt="Print 4 - Agradecimento" class="print-item" />
+        <img src="assets/images/print_5.jpg" alt="Print 5 - Agradecimento" class="print-item" />
+      </div>
 
-        <div class="btn-container">
-          <a class="cta-button" href="https://wa.me/5524999747034">QUERO FAZER PARTE</a>
-        </div>
-      
+      <div class="btn-container">
+        <a class="cta-button" href="https://wa.me/5524999747034">QUERO FAZER PARTE</a>
+      </div>
+
     </section>
 
     <section class="quem-somos">
@@ -211,6 +230,57 @@
     </div>
   </footer>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    particlesJS('hero', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.5
+        },
+        "size": {
+          "value": 3
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 4
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          }
+        }
+      }
+    });
+  </script>
   <!-- Link para o arquivo JavaScript -->
   <script src="assets/js/main.js"></script>
 </body>
